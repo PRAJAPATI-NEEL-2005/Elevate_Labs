@@ -1,0 +1,66 @@
+ Housing_system 
+
+
+CREATE TABLE Departments (
+    department_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL
+)
+
+
+CREATE TABLE Officers (
+    officer_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id)
+)
+
+
+CREATE TABLE Citizens (
+    citizen_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    aadhaar_number VARCHAR(12) UNIQUE,
+    income_level VARCHAR(50)
+)
+
+
+CREATE TABLE Housing_Schemes (
+    scheme_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    eligibility_criteria TEXT,
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id)
+)
+
+
+CREATE TABLE Flats (
+    flat_id INT PRIMARY KEY AUTO_INCREMENT,
+    address VARCHAR(255),
+    scheme_id INT,
+    status ENUM('Available', 'Allotted') DEFAULT 'Available',
+    FOREIGN KEY (scheme_id) REFERENCES Housing_Schemes(scheme_id)
+)
+
+
+CREATE TABLE Applications (
+    application_id INT PRIMARY KEY AUTO_INCREMENT,
+    citizen_id INT,
+    scheme_id INT,
+    application_date DATE,
+    status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+    FOREIGN KEY (citizen_id) REFERENCES Citizens(citizen_id),
+    FOREIGN KEY (scheme_id) REFERENCES Housing_Schemes(scheme_id)
+)
+
+
+CREATE TABLE Allotments (
+    allotment_id INT PRIMARY KEY AUTO_INCREMENT,
+    application_id INT,
+    flat_id INT,
+    officer_id INT,
+    allotment_date DATE,
+    FOREIGN KEY (application_id) REFERENCES Applications(application_id),
+    FOREIGN KEY (flat_id) REFERENCES Flats(flat_id),
+    FOREIGN KEY (officer_id) REFERENCES Officers(officer_id)
+)
+
+
