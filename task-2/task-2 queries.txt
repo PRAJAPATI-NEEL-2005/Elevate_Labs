@@ -1,0 +1,53 @@
+below is insert update and delete queries for the task and for my domain created in task 1
+
+here in below file i have provided my database structure and data in sql file below
+
+INSERT INTO Departments (name) VALUES
+('Urban Development'),
+('Housing Board');
+
+
+INSERT INTO Officers (name, department_id) VALUES
+('Anita Sharma', 1), 
+('Raj Patel', 2);     
+
+INSERT INTO Citizens (name, aadhaar_number, income_level) VALUES
+('Neha Joshi', '999911112222', 'Low'),
+('Amit Desai', '888877776666', 'Middle'),
+('Rita Shah', NULL, 'Low');  
+
+INSERT INTO Housing_Schemes (name, eligibility_criteria, department_id) VALUES
+('Affordable Urban Housing', 'For low-income groups', 1),
+('Middle Income Flat Scheme', NULL, 2);  
+
+INSERT INTO Flats (address, scheme_id, status) VALUES
+('Block A, Flat 101', 1, 'Available'),
+('Block B, Flat 205', 2, 'Available'),
+('Block C, Flat 310', 1, NULL);  
+
+INSERT INTO Applications (citizen_id, scheme_id, application_date, status) VALUES
+(1, 1, '2025-06-22', 'Pending'),
+(2, 2, '2025-06-23', NULL),  (3, 1, '2025-06-24', 'Rejected'); 
+
+
+INSERT INTO Allotments (application_id, flat_id, officer_id, allotment_date) VALUES
+(1, 1, 1, '2025-06-25');  
+
+
+
+UPDATE Flats
+SET status = 'Allotted'
+WHERE flat_id = 1;
+
+UPDATE Applications
+SET status = 'Approved'
+WHERE application_id = 2;
+
+UPDATE Citizens
+SET aadhaar_number = '777766665555'
+WHERE citizen_id = 3;
+
+
+DELETE FROM Applications WHERE citizen_id = 3;
+
+DELETE FROM Citizens WHERE citizen_id = 3;
